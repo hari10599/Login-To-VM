@@ -23,10 +23,13 @@ if { $action == "docker" } {
     send "docker exec -it \$(docker ps -q) bash\r"
 } elseif { $action == "jetty"} {
     expect "$"
+    #Jetty Server Folder
     send "cd /var/lib/docker/volumes/shared/_data/jetty/jetty-distribution-9.4.38.v20210224/\r"
     expect "$"
+    #Kills the process running in the port
     send "kill \$(lsof -t -i:12345)\r"
     expect "$"
+    #Starts the Server
     send "java -jar start.jar\r"
 }
 
